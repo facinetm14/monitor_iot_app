@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ModuleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,20 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('data', [ModuleController::class, 'supervise'])->name('data');
+
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::get('/', [ModuleController::class, 'index'],
+    )->name('dashboard');
+
+    Route::post('/', [ModuleController::class, 'create'],
+    )->name('ajout-module');
+
+    Route::get('/{id}', [ModuleController::class, 'delete'],
+    )->name('suppr-module');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
