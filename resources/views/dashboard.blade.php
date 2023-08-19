@@ -138,15 +138,16 @@
             var tmp = dataStreams.filter(data => {
                 return (data.module === modules[i].id);
             });
+
             const curr = tmp[0] ? parseInt(tmp[0].temperature) : 0;
             const prev = tmp[1] ? parseInt(tmp[1].temperature) : 0;
             temperatures.curr.push(curr);
             temperatures.prev.push(prev);
+
             labels.push(modules[i].name);
-            console.log(tmp);
         }
-        console.log(temperatures.prev);
-        console.log(temperatures.curr);
+
+        // creation de diagramme avec Chart
         const chBar = document.querySelector("#chBar");
         if (chBar) {
             new Chart(chBar, {

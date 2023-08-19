@@ -66,10 +66,9 @@ class ModuleController extends Controller
             if ($id == $idxSelected) {
                 $newSate = ($state == 'ACTIF') ? 'INACTIF' : 'ACTIF';
                 DB::table('modules')->where('id', $module->id)->update(['etat' => $newSate]);
-                return 'AFFECT';
+                return;
             }
         }
-        return 'NO AFFECT';
     }
 
 
